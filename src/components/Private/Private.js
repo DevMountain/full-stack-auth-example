@@ -10,10 +10,6 @@ class Private extends Component {
         this.props.getUserInfo();
     }
 
-    logout() {
-        axios.get('/api/logout');
-    }
-
     render() {
         return (
             <div className=''>
@@ -24,7 +20,7 @@ class Private extends Component {
                 <p>Email: { this.props.user ? this.props.user.email : null }</p>
                 <p>ID: { this.props.user ? this.props.user.auth_id : null }</p>
                 <h4>Available balance: { this.props.user ? '$' + Math.floor((Math.random() + 1) * 100) + '.00' : null } </h4>
-                <button onClick={ () => this.logout() }>Log out</button>
+                <a href='http://localhost:3005/auth/logout'><button>Log out</button></a>
             </div> 
         )
     }
