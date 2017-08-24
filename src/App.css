@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Overlock');
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+img {
+  margin: 50px;
+  width: 250px;
+}
+
+input {
+  margin-top: 15px;
+  width: 200px;
+  height: 30px;
+  border: none;
+  border-bottom: solid 1px;
+  font-size: 15px;
+  padding-left: 5px;
+}
+
+button {
+  margin-top: 15px;
+  width: 175px;
+  height: 40px;
+  border-radius: 5px;
+  background: white;
+  font-size: 20px;
+  font-family: 'Overlock', cursive;
+}
+
+button:focus {
+  outline: none;
+}
