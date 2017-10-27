@@ -4,7 +4,9 @@ This is an example of a full-stack app that students can refer to when building 
 
 ## Front end
 * React
+* react-router-dom
 * Redux
+* redux-promise-middleware
 * Axios
 
 ## Back end
