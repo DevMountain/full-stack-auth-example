@@ -1,3 +1,11 @@
 .avatar {
     width: 50px;
 }
+
+.info-container {
+    margin-left: 15px;
+}
+
+hr {
+    margin-left: -15px;
+}
