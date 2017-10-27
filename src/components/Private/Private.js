@@ -3,6 +3,7 @@ import './Private.css'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { getUserInfo } from './../../ducks/user';
+import { Link } from 'react-router-dom';
 
 class Private extends Component {
     
@@ -11,16 +12,29 @@ class Private extends Component {
     }
 
     render() {
+        const loginJSX = (
+            this.props.user ?
+                <div className='info-container'>
+                    <h1>Community Bank</h1><hr />
+                    <h4>Account information:</h4>
+                    <img className='avatar' src={this.props.user.img} />
+                    <p>Username: {this.props.user.user_name}</p>
+                    <p>Email: {this.props.user.email}</p>
+                    <p>ID: {this.props.user.auth_id}</p>
+                    <h4>Available balance: {'$' + Math.floor((Math.random() + 1) * 100) + '.00'} </h4>
+                    <a href='http://localhost:3005/auth/logout'><button>Log out</button></a>
+                </div>
+            :
+                <div className='info-container'>
+                    <h1>Community Bank</h1><hr />
+                    <h4>Please log in to view bank information.</h4>
+                    <Link to='/'><button>Log in</button></Link>
+                </div> 
+        )
+
         return (
-            <div className=''>
-                <h1>Community Bank</h1><hr />
-                <h4>Account information:</h4>
-                { this.props.user ? <img className='avatar' src={this.props.user.img} /> : null }
-                <p>Username: { this.props.user ? this.props.user.user_name : null }</p>
-                <p>Email: { this.props.user ? this.props.user.email : null }</p>
-                <p>ID: { this.props.user ? this.props.user.auth_id : null }</p>
-                <h4>Available balance: { this.props.user ? '$' + Math.floor((Math.random() + 1) * 100) + '.00' : null } </h4>
-                <a href='http://localhost:3005/auth/logout'><button>Log out</button></a>
+            <div>
+                { loginJSX }
             </div> 
         )
     }

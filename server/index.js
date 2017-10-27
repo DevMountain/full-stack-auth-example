@@ -5,8 +5,7 @@ const express = require('express')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
     , massive = require('massive')
-    , session = require('express-session')
-    , config = require('./config');
+    , session = require('express-session');
 
 const app = express();
 
@@ -19,13 +18,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/../build'));
 
-massive({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_DATABASE,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD
-}).then( db => {
+massive(process.env.CONNECTION_STRING).then( db => {
   app.set('db', db);
 })
 
@@ -68,8 +61,8 @@ passport.serializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(obj, done) {
-  app.get('db').find_session_user([obj.id])
+passport.deserializeUser(function(user, done) {
+  app.get('db').find_session_user([user.id])
   .then( user => {
     return done(null, user[0]);
   })
@@ -77,7 +70,7 @@ passport.deserializeUser(function(obj, done) {
 
 app.get('/auth/me', (req, res, next) => {
   if (!req.user) {
-    return res.status(404).send('User not found');
+    return res.status(401).send('Log in required');
   } else {
     return res.status(200).send(req.user);
   }
@@ -85,7 +78,7 @@ app.get('/auth/me', (req, res, next) => {
 
 app.get('/auth/logout', (req, res) => {
   req.logOut();
-  return res.redirect(302, 'http://localhost:3000/#/');
+  return res.redirect('http://localhost:3000/#/');
 })
 
 let PORT = 3005;
