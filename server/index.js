@@ -34,16 +34,12 @@ passport.use(new Auth0Strategy({
   db.find_user([ profile.identities[0].user_id ])
   .then( user => {
    if ( user[0] ) {
-
      return done( null, { id: user[0].id } );
-
    } else {
-
      db.create_user([profile.displayName, profile.emails[0].value, profile.picture, profile.identities[0].user_id])
      .then( user => {
         return done( null, { id: user[0].id } );
      })
-
    }
   })
 
