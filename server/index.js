@@ -49,8 +49,8 @@ passport.use(new Auth0Strategy({
 app.get('/auth', passport.authenticate('auth0'));
 
 app.get('/auth/callback', passport.authenticate('auth0', {
-  successRedirect: 'http://localhost:3000/#/private',
-  failureRedirect: 'http://localhost:3000/#/'
+  successRedirect: `${preocess.env.FRONTEND_URL}#/private`,
+  failureRedirect: '${preocess.env.FRONTEND_URL}#/'
 }))
 
 passport.serializeUser(function(user, done) {
@@ -74,10 +74,10 @@ app.get('/auth/me', (req, res, next) => {
 
 app.get('/auth/logout', (req, res) => {
   req.logOut();
-  return res.redirect('http://localhost:3000/#/');
+  return res.redirect(`${process.env.FRONTEND_URL}#/`);
 })
 
-let PORT = 3005;
+let PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 })    
