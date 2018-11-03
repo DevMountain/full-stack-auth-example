@@ -1,12 +1,12 @@
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env')});
 
-const express = require('express')
-    , bodyParser = require('body-parser')
-    , passport = require('passport')
-    , Auth0Strategy = require('passport-auth0')
-    , massive = require('massive')
-    , session = require('express-session');
+const express = require('express');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const Auth0Strategy = require('passport-auth0');
+const massive = require('massive');
+const session = require('express-session');
 
 const app = express();
 
