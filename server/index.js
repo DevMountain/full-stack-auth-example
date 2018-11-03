@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env')});
 
 const express = require('express')
     , bodyParser = require('body-parser')
@@ -14,6 +15,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/../build'));
@@ -49,8 +51,8 @@ passport.use(new Auth0Strategy({
 app.get('/auth', passport.authenticate('auth0'));
 
 app.get('/auth/callback', passport.authenticate('auth0', {
-  successRedirect: `${preocess.env.FRONTEND_URL}#/private`,
-  failureRedirect: '${preocess.env.FRONTEND_URL}#/'
+  successRedirect: `${process.env.FRONTEND_URL}#/private`,
+  failureRedirect: `${process.env.FRONTEND_URL}#/`
 }))
 
 passport.serializeUser(function(user, done) {
@@ -64,7 +66,7 @@ passport.deserializeUser(function(user, done) {
   })
 });
 
-app.get('/auth/me', (req, res, next) => {
+app.get('/auth/me', (req, res) => {
   if (!req.user) {
     return res.status(401).send('Log in required');
   } else {
@@ -77,7 +79,7 @@ app.get('/auth/logout', (req, res) => {
   return res.redirect(`${process.env.FRONTEND_URL}#/`);
 })
 
-let PORT = process.env.PORT;
+let PORT = process.env.PORT || 3005;
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 })    
