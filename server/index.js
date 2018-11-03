@@ -31,7 +31,10 @@ app.use(express.static(
   path.join(__dirname, '..', 'build')
 ));
 
-massive(process.env.CONNECTION_STRING).then( db => {
+massive(process.env.CONNECTION_STRING, {
+  // Load SQL files from db directory
+  scripts: path.join(__dirname, '..', 'db')
+}).then( db => {
   app.set('db', db);
   // Create Users Table in database
   // if it doesn't already exist
