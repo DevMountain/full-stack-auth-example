@@ -5,13 +5,13 @@ import { getUserInfo } from './../../ducks/user';
 import { Link } from 'react-router-dom';
 
 class Private extends Component {
-    
     componentDidMount() {
         this.props.getUserInfo();
     }
 
     render() {
         const loginJSX = (
+            // Check if we have any data for our user
             Object.keys(this.props.user).length > 0 ?
                 <div className='info-container'>
                     <h1>Community Bank</h1><hr />
