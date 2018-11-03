@@ -4,24 +4,24 @@
   "private": true,
   "main": "./server/index",
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.18.0",
     "body-parser": "^1.17.2",
-    "dotenv": "^4.0.0",
+    "dotenv": "^6.1.0",
     "express": "^4.15.3",
     "express-session": "^1.15.5",
-    "massive": "^3.1.0",
-    "passport": "^0.3.2",
-    "passport-auth0": "^0.6.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "massive": "^5.5.1",
+    "passport": "^0.4.0",
+    "passport-auth0": "^1.1.0",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",
-    "redux": "^3.7.2",
-    "redux-promise-middleware": "^4.3.0"
+    "redux": "^4.0.1",
+    "redux-promise-middleware": "^5.1.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.5",
-    "react-scripts": "1.0.10"
+    "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,5 +30,11 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3005"
+  "proxy": "http://localhost:3005",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

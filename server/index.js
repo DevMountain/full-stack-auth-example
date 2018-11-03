@@ -46,13 +46,11 @@ passport.use(new Auth0Strategy({
   clientID: process.env.AUTH_CLIENT_ID,
   clientSecret: process.env.AUTH_CLIENT_SECRET,
   callbackURL: '/auth/callback',
-  scope: 'openid id email profile'
+  scope: 'openid email profile'
 }, (accessToken, refreshToken, extraParams, profile, done) => {
-
   const db = app.get('db');
-  console.log('profile', profile);
 
-  db.find_user([ profile.nickname ])
+  db.find_user([ profile.id ])
     .then((user) => {
       if (user[0]) {
         return done( null, { id: user[0].id } );
