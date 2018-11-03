@@ -22,23 +22,29 @@ app.use(express.static(__dirname + '/../build'));
 
 massive(process.env.CONNECTION_STRING).then( db => {
   app.set('db', db);
+  db.users_table_create()
+    .then(() => {
+      console.log('Created Users Table')
+    })
 })
 
 passport.use(new Auth0Strategy({
   domain: process.env.AUTH_DOMAIN,
   clientID: process.env.AUTH_CLIENT_ID,
   clientSecret: process.env.AUTH_CLIENT_SECRET,
-  callbackURL: process.env.AUTH_CALLBACK
+  callbackURL: process.env.AUTH_CALLBACK,
+  scope: 'openid id email profile'
 }, function(accessToken, refreshToken, extraParams, profile, done) {
 
   const db = app.get('db');
+  console.log('profile', profile);
 
-  db.find_user([ profile.identities[0].user_id ])
+  db.find_user([ profile.nickname ])
   .then( user => {
    if ( user[0] ) {
      return done( null, { id: user[0].id } );
    } else {
-     db.create_user([profile.displayName, profile.emails[0].value, profile.picture, profile.identities[0].user_id])
+     db.create_user([profile.displayName, profile.emails[0].value, profile.picture, profile.nickname])
      .then( user => {
         return done( null, { id: user[0].id } );
      })
@@ -79,7 +85,7 @@ app.get('/auth/logout', (req, res) => {
   return res.redirect(`${process.env.FRONTEND_URL}#/`);
 })
 
-let PORT = process.env.PORT || 3005;
+let PORT = 3005;
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 })    

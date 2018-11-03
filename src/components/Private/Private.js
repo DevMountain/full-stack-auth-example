@@ -12,7 +12,7 @@ class Private extends Component {
 
     render() {
         const loginJSX = (
-            this.props.user ?
+            Object.keys(this.props.user).length > 0 ?
                 <div className='info-container'>
                     <h1>Community Bank</h1><hr />
                     <h4>Account information:</h4>
