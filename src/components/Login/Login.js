@@ -8,7 +8,7 @@ export default class Login extends Component {
         return (
             <div className='App'>  
                 <img src={logo} alt=""/>
-                <a href={ process.env.REACT_APP_LOGIN }><button>Login</button></a>
+                <a href={process.env.REACT_APP_LOGIN}><button>Login</button></a>
             </div> 
         )
     }

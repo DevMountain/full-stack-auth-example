@@ -5,19 +5,12 @@ import Private from './components/Private/Private';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      
-    }
-  }
   render() {
     return (
       <HashRouter>
         <div>
-          <Route component={ Login } path='/' exact />
-          <Route component={ Private } path='/private' />
+          <Route component={Login} path='/' exact />
+          <Route component={Private} path='/private' />
         </div> 
       </HashRouter>  
     );
